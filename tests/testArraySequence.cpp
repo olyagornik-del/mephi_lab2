@@ -5,9 +5,15 @@
 #include "../Sequences/ArraySequence.h"
 
 // вспомогательные функции для Map / Where / Reduce
-static int doubleIt(int x)       { return x * 2; }
-static bool isEven(int x)        { return x % 2 == 0; }
-static int addInts(int a, int b) { return a + b; }
+static int DoubleIt(int x) {
+    return x * 2;
+}
+static bool IsEven(int x) {
+    return x % 2 == 0;
+}
+static int AddInts(int a, int b) {
+    return a + b;
+}
 
 void testArraySequenceCreate() {
     // пустая последовательность
@@ -169,7 +175,7 @@ void testArraySequenceMap() {
     ArraySequence<int> Source(items, 3);
 
     // doubleIt: [1,2,3] -> [2,4,6]
-    Sequence<int>* Doubled = Source.Map(doubleIt);
+    Sequence<int>* Doubled = Source.Map(DoubleIt);
     assert(Doubled->GetLength() == 3);
     assert(Doubled->Get(0) == 2);
     assert(Doubled->Get(1) == 4);
@@ -187,7 +193,7 @@ void testArraySequenceWhere() {
     ArraySequence<int> Mixed(items, 5);
 
     // isEven: [1,2,3,4,5] -> [2,4]
-    Sequence<int>* EvenOnly = Mixed.Where(isEven);
+    Sequence<int>* EvenOnly = Mixed.Where(IsEven);
     assert(EvenOnly->GetLength() == 2);
     assert(EvenOnly->Get(0) == 2);
     assert(EvenOnly->Get(1) == 4);
@@ -196,7 +202,7 @@ void testArraySequenceWhere() {
     // ни одного подходящего
     int odds[] = {1, 3, 5};
     ArraySequence<int> OnlyOdds(odds, 3);
-    Sequence<int>* NoEvens = OnlyOdds.Where(isEven);
+    Sequence<int>* NoEvens = OnlyOdds.Where(IsEven);
     assert(NoEvens->GetLength() == 0);
     delete NoEvens;
 
@@ -208,11 +214,11 @@ void testArraySequenceReduce() {
     ArraySequence<int> Seq(items, 4);
 
     // сумма с начальным 0: 0+1+2+3+4 = 10
-    int Sum = Seq.Reduce(addInts, 0);
+    int Sum = Seq.Reduce(AddInts, 0);
     assert(Sum == 10);
 
     // начальное значение не ноль
-    Sum = Seq.Reduce(addInts, 10);
+    Sum = Seq.Reduce(AddInts, 10);
     assert(Sum == 20);
 
     printf("  [OK] testArraySequenceReduce\n");
