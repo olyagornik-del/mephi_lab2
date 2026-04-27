@@ -1,0 +1,6 @@
+#ifndef LAB2_TESTDYNAMICARRAY_H
+#define LAB2_TESTDYNAMICARRAY_H
+
+void testDynamicArrayAll();
+
+#endif //LAB2_TESTDYNAMICARRAY_H

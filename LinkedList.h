@@ -1,0 +1,169 @@
+#ifndef LAB2_LINKEDLIST_H
+#define LAB2_LINKEDLIST_H
+
+#include "my_stdexcept.h"
+
+template <class T>
+
+class LinkedList {
+private:
+    struct Node {
+        T value;
+        Node *next;
+    };
+    Node *head;
+    Node *tail;
+    size_t size;
+public:
+    //конструктор по умолчанию
+    LinkedList(): head(nullptr), tail(nullptr), size(0){}
+    //конструктор делающий LinkedList из массива
+    LinkedList(T *items, int size): size(size) {
+        if (size<0) {
+            throw InvalidArgument("Всё не придумали отрицательный размер");
+        }
+        if (size==0) {
+            head = nullptr;
+            tail = nullptr;
+        }
+        else {
+            head = new Node{items[0], nullptr};
+        }
+        Node *current = head;
+        for (int i=1; i<size; i++) {
+            current->next = new Node{items[i], nullptr};
+            current = current->next;
+        }
+        tail = current;
+    }
+    //конструктор копирования из LinkedList
+    LinkedList(const LinkedList<T> &other_list): size(other_list.size) {
+        if (size==0) {
+            head = nullptr;
+            tail = nullptr;
+            return;
+        }
+        else {
+            head = new Node{other_list.head->value, nullptr};
+        }
+        Node *current = head;
+        Node *other_current = other_list.head->next;
+        for (int i=1; i<size; i++) {
+            current->next = new Node{other_current->value,nullptr};
+            current = current->next;
+            other_current = other_current->next;
+        }
+        tail = current;
+    }
+
+    //получаем размер списка
+    int GetLength() const {
+        return size;
+    }
+    // достаём первый элемент
+    T GetFirst() const {
+        if (head==nullptr) {
+            throw OutOfRange("Список пуст :/");
+        }
+        return head->value;
+    }
+    // достаём последний элемент
+    T GetLast() const {
+        if (head==nullptr) {
+            throw OutOfRange("Список пуст :/");
+        }
+        return tail->value;
+    }
+    // достаём элемент по индексу
+    T Get(int index) const {
+        if (head==nullptr) {
+            throw OutOfRange("Список пуст :/");
+        }
+        if (index<0 || index >=size) {
+            throw InvalidArgument("Нет такого индекса в вашем списке");
+        }
+        Node* current = head;
+        for (int i=0; i<index; i++)
+            current = current->next;
+        return current->value;
+    }
+    // прибавление элемента в конце
+    void Append(T item) {
+        Node *new_node = new Node{item, nullptr};
+        if (tail==nullptr) {
+            head = new_node;
+            tail = new_node;
+        }
+        else {
+            tail->next = new_node;
+            tail = new_node;
+        }
+        size++;
+    }
+    // прибавление в начале
+    void Prepend(T item) {
+        Node *new_node = new Node{item, head};
+        head = new_node;
+        if (tail == nullptr)
+            tail = new_node;
+        size++;
+    }
+    // прибавление элемента по индексу
+    void InsertAt(int index, T item) {
+        if (index<0 || index >size) {
+            throw InvalidArgument("Нет такого индекса в вашем списке");
+        }
+        if (index == 0) {
+            Prepend(item);
+            return;
+        }
+        if (index == size) {
+            Append(item);
+            return;
+        }
+        Node *prev_el = head;
+        for (int i=0; i<index-1; i++) {
+            prev_el = prev_el->next;
+        }
+        Node *next_el = prev_el->next;
+        Node *new_node = new Node{item, next_el};
+        prev_el->next = new_node;
+        size++;
+    }
+    // подсписок
+    LinkedList<T>* GetSubList(int start_index, int end_index) {
+        if (start_index<0 || start_index>end_index || end_index >= size) {
+            throw InvalidArgument("Индексы некорректны перепроверьте себя");
+        }
+        LinkedList<T> *result = new LinkedList<T>();
+        for (int i = start_index; i <= end_index; i++)
+            result->Append(Get(i));
+        return result;
+    }
+    // склеивание списков
+    LinkedList<T>* Concat(LinkedList<T> *second_list) {
+        if (size == 0)
+            return new LinkedList<T>(*second_list);
+        if (second_list->size == 0)
+            return new LinkedList<T>(*this);
+        LinkedList<T>* result = new LinkedList<T>(*this); //создаём копию нашего, 1ого списка
+        Node* current = second_list->head;
+        while (current != nullptr) {
+            result->Append(current->value);
+            current = current->next;
+        }
+        return result;
+    }
+
+    ~LinkedList() {
+        Node *current = head;
+        for (int i=0; i<size; i++) {
+            Node *next_node = current->next;
+            delete current;
+            current = next_node;
+        }
+    }
+
+};
+
+#endif //LAB2_LINKEDLIST_H

@@ -1,0 +1,6 @@
+#ifndef LAB2_TESTARRAYSEQUENCE_H
+#define LAB2_TESTARRAYSEQUENCE_H
+
+void testArraySequenceAll();
+
+#endif //LAB2_TESTARRAYSEQUENCE_H
