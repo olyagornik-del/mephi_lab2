@@ -8,7 +8,8 @@ add_executable(lab2 main.cpp
         my_stdexcept.h
         LinkedList.h
         Sequences/Sequence.h
-        Sequences/ArraySequence.h)
+        Sequences/ArraySequence.h
+        Sequences/ListSequence.h)
 
 add_executable(lab2_tests
         tests/test.cpp

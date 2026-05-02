@@ -13,14 +13,15 @@ private:
     };
     Node *head;
     Node *tail;
-    size_t size;
+    int size;
 public:
     //конструктор по умолчанию
     LinkedList(): head(nullptr), tail(nullptr), size(0){}
     //конструктор делающий LinkedList из массива
     LinkedList(T *items, int size): size(size) {
         if (size<0) {
-            throw InvalidArgument("size");
+            throw OutOfRange("size", size, 0, 1000000);
+            //не оч понимаю как верхний предел поставить
         }
         if (size==0) {
             head = nullptr;
@@ -80,7 +81,7 @@ public:
             throw OutOfRange("Список пуст :/");
         }
         if (index<0 || index >=size) {
-            throw OutOfRange("index", index, 0, (int)size-1 );
+            throw OutOfRange("index", index, 0, size-1);
         }
         Node* current = head;
         for (int i=0; i<index; i++)

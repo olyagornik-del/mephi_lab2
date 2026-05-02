@@ -29,14 +29,9 @@ public:
 
 class OutOfRange : public ParentForErrors {
 public:
-    // для случая "список пуст" — просто текст
+    // для случая "список пуст"
     explicit OutOfRange(const char* msg)
         : ParentForErrors(msg) {}
-
-    explicit OutOfRange(const char* name, size_t value, size_t min, size_t max)
-        : ParentForErrors(
-            (std::string("значение ") + name + " = " + std::to_string(value) +
-             " вне диапазона [" + std::to_string(min) + ", " + std::to_string(max) + "]").c_str()) {}
 
     explicit OutOfRange(const char* name, int value, int min, int max)
         : ParentForErrors(

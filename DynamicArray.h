@@ -8,8 +8,8 @@ template <class T>
 class DynamicArray {
 private:
     T *data;
-    size_t size;
-    size_t capacity;
+    int size;
+    int capacity;
 
 public:
     // конструктор по умолчанию
@@ -48,21 +48,21 @@ public:
         return size;
     }
     // достаём элемент по индексу
-    T Get(size_t index) const {
-        if (index>=size) {
-            throw OutOfRange("index", index, (size_t)0, size);
+    T Get(int index) const {
+        if (index < 0 || index >= size) {
+            throw OutOfRange("index", index, 0, size - 1);
         }
         return data[index];
     }
     //изменить элемент по номеру
-    void Set(size_t index, T value) {
-        if (index>=size) {
-            throw OutOfRange("index", index, (size_t)0, size);
+    void Set(int index, T value) {
+        if (index < 0 || index >= size) {
+            throw OutOfRange("index", index, 0, size - 1);
         }
         data[index] = value;
     }
     // изменение размера
-    void Resize(size_t new_size) {
+    void Resize(int new_size) {
         if (new_size>capacity) {
             capacity = (new_size > capacity * 2) ? new_size : capacity * 2;
             T* new_data = new T [capacity]{};

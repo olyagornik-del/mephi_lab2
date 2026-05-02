@@ -13,7 +13,7 @@ public:
     ArraySequence(): data() {}
     explicit ArraySequence(int size): data(size) {}
     ArraySequence(T *items, int size): data(items, size) {}
-    ArraySequence(const DynamicArray<T> &other_arr) : data(other_arr) {}
+    explicit ArraySequence(const DynamicArray<T> &other_arr) : data(other_arr) {}
 
     //получаем длину
     int GetLength() const override{
@@ -24,13 +24,13 @@ public:
         if (GetLength() == 0)
             throw OutOfRange("Последовательность пуста");
         return data.Get(0);
-    }
+    } //!!
     //получаем последний
     T GetLast() const override {
         if (GetLength() == 0)
             throw OutOfRange("Последовательность пуста");
         return data.Get(GetLength()-1);
-    }
+    }//!!
     // получаем элемент по индексу
     T Get(int index) const override {
         if (GetLength() == 0)
@@ -90,7 +90,7 @@ public:
         return this;
     }
     //склеивание списков
-    Sequence<T>* Concat(Sequence<T>* other) const override{
+    Sequence<T>* Concat(Sequence<T> *other) const override{
         int new_length = GetLength()+other->GetLength();
         T *temp = new T[new_length]; // можно сразу дм
         for (int i=0; i<new_length; i++) {
@@ -105,6 +105,7 @@ public:
         delete[] temp;
         return result;
     }
+
     //map
     Sequence<T>* Map(T (*f)(T)) const override {
         ArraySequence<T>* result = new ArraySequence<T>(GetLength());
@@ -116,8 +117,9 @@ public:
     Sequence<T>* Where(bool (*f)(T)) const override {
         ArraySequence<T>* result = new ArraySequence<T>();
         for (int i = 0; i < GetLength(); i++)
-            if (f(Get(i)))
+            if (f(Get(i))) {
                 result->Append(Get(i));
+            }
         return result;
     }
     //reduce
@@ -132,9 +134,6 @@ public:
     T operator[](int index) const override {
         return Get(index);
     }
-
-
-
 };
 
 #endif //LAB2_ARRAYSEQUENCE_H
