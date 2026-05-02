@@ -15,17 +15,19 @@ public:
     // конструктор по умолчанию
     DynamicArray(): data(nullptr), size(0), capacity(0) {}
     // конструктор куда передаём только размер, заполняем нулями
-    explicit DynamicArray(int size): size(size) {
+    explicit DynamicArray(int size) {
         if (size<0)
-            throw InvalidArgument("Нельзя создать массив размером меньше нуля");
+            throw InvalidArgument("size");
+        this->size = size;
         data = new T [size]{};
         capacity = size;
     }
     // конструктор с размером и переданными данными
-    DynamicArray(T *items, int size): size(size) {
+    DynamicArray(T *items, int size) {
         if (size<0) {
-            throw InvalidArgument("Нельзя создать массив размером меньше нуля");
+            throw InvalidArgument("size");
         }
+        this->size = size;
         data = new T [size]{};
         for (int i=0; i<size; i++) {
             data[i] = items[i];
@@ -48,21 +50,21 @@ public:
     // достаём элемент по индексу
     T Get(size_t index) const {
         if (index>=size) {
-            throw InvalidArgument("Нет такого индекса в вашем списке");
+            throw OutOfRange("index", index, (size_t)0, size);
         }
         return data[index];
     }
     //изменить элемент по номеру
     void Set(size_t index, T value) {
         if (index>=size) {
-            throw InvalidArgument("Нет такого индекса в вашем списке");
+            throw OutOfRange("index", index, (size_t)0, size);
         }
         data[index] = value;
     }
     // изменение размера
     void Resize(size_t new_size) {
         if (new_size>capacity) {
-            capacity = (new_size > capacity * 2) ? new_size : capacity * 2;;
+            capacity = (new_size > capacity * 2) ? new_size : capacity * 2;
             T* new_data = new T [capacity]{};
             for (int i=0; i<size; i++) {
                 new_data[i] = data[i];

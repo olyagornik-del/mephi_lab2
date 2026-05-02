@@ -20,17 +20,29 @@ public:
 
 class InvalidArgument : public ParentForErrors {
 public:
-    explicit InvalidArgument(const char* NameOfArgument) :
-    ParentForErrors((std::string("неправильный аргумент:") + NameOfArgument).c_str()) {}
+    explicit InvalidArgument(const char *Name) :
+    ParentForErrors((std::string("неправильный аргумент:") + Name).c_str()) {}
+    explicit InvalidArgument(const char *Name1, const char *Name2 ) :
+    ParentForErrors((std::string("неправильные аргументы:") + Name1 + std::string(", ")
+        + Name2).c_str()) {}
+};
 
 class OutOfRange : public ParentForErrors {
 public:
-    OutOfRange(const char* name, int value, int min, int max)
+    // для случая "список пуст" — просто текст
+    explicit OutOfRange(const char* msg)
+        : ParentForErrors(msg) {}
+
+    explicit OutOfRange(const char* name, size_t value, size_t min, size_t max)
+        : ParentForErrors(
+            (std::string("значение ") + name + " = " + std::to_string(value) +
+             " вне диапазона [" + std::to_string(min) + ", " + std::to_string(max) + "]").c_str()) {}
+
+    explicit OutOfRange(const char* name, int value, int min, int max)
         : ParentForErrors(
             (std::string("значение ") + name + " = " + std::to_string(value) +
              " вне диапазона [" + std::to_string(min) + ", " + std::to_string(max) + "]").c_str()) {}
 };
-
 
 
 

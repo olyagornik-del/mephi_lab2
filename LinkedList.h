@@ -20,7 +20,7 @@ public:
     //конструктор делающий LinkedList из массива
     LinkedList(T *items, int size): size(size) {
         if (size<0) {
-            throw InvalidArgument("Всё не придумали отрицательный размер");
+            throw InvalidArgument("size");
         }
         if (size==0) {
             head = nullptr;
@@ -80,7 +80,7 @@ public:
             throw OutOfRange("Список пуст :/");
         }
         if (index<0 || index >=size) {
-            throw InvalidArgument("Нет такого индекса в вашем списке");
+            throw OutOfRange("index", index, 0, (int)size-1 );
         }
         Node* current = head;
         for (int i=0; i<index; i++)
@@ -111,7 +111,7 @@ public:
     // прибавление элемента по индексу
     void InsertAt(int index, T item) {
         if (index<0 || index >size) {
-            throw InvalidArgument("Нет такого индекса в вашем списке");
+            throw OutOfRange("index", index, 0, (int)size);
         }
         if (index == 0) {
             Prepend(item);
@@ -133,7 +133,7 @@ public:
     // подсписок
     LinkedList<T>* GetSubList(int start_index, int end_index) {
         if (start_index<0 || start_index>end_index || end_index >= size) {
-            throw InvalidArgument("Индексы некорректны перепроверьте себя");
+            throw OutOfRange("неверные индексы start_index, end_index");
         }
         LinkedList<T> *result = new LinkedList<T>();
         for (int i = start_index; i <= end_index; i++)

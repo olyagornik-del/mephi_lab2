@@ -35,12 +35,14 @@ public:
     T Get(int index) const override {
         if (GetLength() == 0)
             throw OutOfRange("Последовательность пуста");
+        if (index < 0 || index >= GetLength())
+            throw OutOfRange("index", index, 0, GetLength() - 1);
         return data.Get(index);
     }
     // получаем подсписок
     Sequence<T>* GetSubsequence(int start_index, int end_index) const override {
-        if (start_index < 0 || start_index > end_index || end_index >= data.GetSize()) {
-            throw OutOfRange("Некорректные индексы");
+        if (start_index < 0 || start_index > end_index || end_index >= GetLength()) {
+            throw OutOfRange("неверные индексы start_index, end_index");
         }
         int sub_size = end_index - start_index +1;
         T *temp = new T[sub_size];
@@ -69,14 +71,14 @@ public:
     }
     //вставить по индексу
     Sequence<T>* InsertAt(int index, T item) override {
-        if (index < 0 || index > data.GetSize()) {
-            throw OutOfRange("Некорректный индекс");
+        if (index < 0 || index > GetLength()) {
+            throw OutOfRange("index", index, 0, GetLength());
         }
         if (index == 0) {
             Prepend(item);
             return this;
         }
-        if (index==data.GetSize()) {
+        if (index==GetLength()) {
             Append(item);
             return this;
         }
