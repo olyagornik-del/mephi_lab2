@@ -97,56 +97,6 @@ void testArraySequenceGetSubsequence() {
     printf("  [OK] testArraySequenceGetSubsequence\n");
 }
 
-void testArraySequenceAppend() {
-    ArraySequence<int> Seq;
-    Seq.Append(1);
-    Seq.Append(2);
-    Seq.Append(3);
-
-    assert(Seq.GetLength() == 3);
-    assert(Seq.GetFirst() == 1);
-    assert(Seq.GetLast() == 3);
-
-    printf("  [OK] testArraySequenceAppend\n");
-}
-
-void testArraySequencePrepend() {
-    ArraySequence<int> Seq;
-    Seq.Prepend(3);
-    Seq.Prepend(2);
-    Seq.Prepend(1);
-
-    assert(Seq.GetLength() == 3);
-    assert(Seq.GetFirst() == 1);
-    assert(Seq.GetLast() == 3);
-
-    printf("  [OK] testArraySequencePrepend\n");
-}
-
-void testArraySequenceInsertAt() {
-    int items[] = {1, 3};
-    ArraySequence<int> Seq(items, 2);
-
-    // вставка в середину
-    Seq.InsertAt(1, 2);
-    assert(Seq.GetLength() == 3);
-    assert(Seq.Get(1) == 2);
-
-    // вставка в начало
-    Seq.InsertAt(0, 0);
-    assert(Seq.GetFirst() == 0);
-
-    // вставка в конец
-    Seq.InsertAt(Seq.GetLength(), 99);
-    assert(Seq.GetLast() == 99);
-
-    // некорректный индекс
-    bool threw = false;
-    try { Seq.InsertAt(-1, 0); } catch (const OutOfRange&) { threw = true; }
-    assert(threw);
-
-    printf("  [OK] testArraySequenceInsertAt\n");
-}
 
 void testArraySequenceConcat() {
     int a[] = {1, 2};
@@ -230,9 +180,6 @@ void testArraySequenceAll() {
     testArraySequenceGetFirstLast();
     testArraySequenceGet();
     testArraySequenceGetSubsequence();
-    testArraySequenceAppend();
-    testArraySequencePrepend();
-    testArraySequenceInsertAt();
     testArraySequenceConcat();
     testArraySequenceMap();
     testArraySequenceWhere();

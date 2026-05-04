@@ -2,10 +2,12 @@
 #include "testLinkedList.h"
 #include "testArraySequence.h"
 #include "testListSequence.h"
+#include "testMutable.h"
 
 int main() {
     testDynamicArrayAll();
     testLinkedListAll();
     testArraySequenceAll();
     testListSequenceAll();
+    testMutableAll();
 }

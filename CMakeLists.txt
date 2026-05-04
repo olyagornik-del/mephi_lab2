@@ -32,5 +32,7 @@ add_executable(lab2_tests
         Sequences/ImmutableArraySequence.h
         Sequences/MutableListSequence.h
         Sequences/ImmutableListSequence.h
-        )
+        tests/testMutable.h
+        tests/testMutable.cpp
+)
 
