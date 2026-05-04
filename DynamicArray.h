@@ -1,7 +1,7 @@
 #ifndef LAB2_DYNAMICARRAY_H
 #define LAB2_DYNAMICARRAY_H
 
-#include "my_stdexcept.h"
+#include "my_except.h"
 
 template <class T>
 

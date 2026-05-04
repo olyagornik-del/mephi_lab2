@@ -3,7 +3,7 @@
 
 #include <exception>
 #include <string>
-
+//переименовать
 class ParentForErrors: public std::exception {
 private:
     std::string message;

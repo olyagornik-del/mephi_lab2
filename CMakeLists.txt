@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(lab2 main.cpp
         DynamicArray.h
-        my_stdexcept.h
+        my_except.h
         LinkedList.h
         Sequences/Sequence.h
         Sequences/ArraySequence.h
@@ -17,7 +17,7 @@ add_executable(lab2_tests
         tests/testLinkedList.cpp
         tests/testArraySequence.cpp
         DynamicArray.h
-        my_stdexcept.h
+        my_except.h
         LinkedList.h
         Sequences/Sequence.h
         Sequences/ArraySequence.h)

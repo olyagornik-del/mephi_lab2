@@ -1,7 +1,7 @@
 #ifndef LAB2_LINKEDLIST_H
 #define LAB2_LINKEDLIST_H
 
-#include "my_stdexcept.h"
+#include "my_except.h"
 
 template <class T>
 
