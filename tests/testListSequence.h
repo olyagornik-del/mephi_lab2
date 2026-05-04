@@ -1,0 +1,6 @@
+#ifndef LAB2_TESTLISTSEQUENCE_H
+#define LAB2_TESTLISTSEQUENCE_H
+
+void testListSequenceAll();
+
+#endif //LAB2_TESTLISTSEQUENCE_H

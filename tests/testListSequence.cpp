@@ -1,10 +1,9 @@
-#include <cassert> // assert
-#include <cstdio> //printf
+#include <cassert>
+#include <cstdio>
 
-#include "testArraySequence.h"
-#include "../Sequences/ArraySequence.h"
+#include "testListSequence.h"
+#include "../Sequences/ListSequence.h"
 
-//testArraySequence вспомогательные функции для Map / Where / Reduce
 static int DoubleIt(int x) {
     return x * 2;
 }
@@ -15,34 +14,30 @@ static int AddInts(int a, int b) {
     return a + b;
 }
 
-void testArraySequenceCreate() {
+void testListSequenceCreate() {
     // пустая последовательность
-    ArraySequence<int> Empty;
+    ListSequence<int> Empty;
     assert(Empty.GetLength() == 0);
-
-    // с размером
-    ArraySequence<int> WithSize(3);
-    assert(WithSize.GetLength() == 3);
 
     // с данными
     int items[] = {1, 2, 3};
-    ArraySequence<int> WithData(items, 3);
+    ListSequence<int> WithData(items, 3);
     assert(WithData.GetLength() == 3);
     assert(WithData.Get(0) == 1);
     assert(WithData.Get(2) == 3);
 
-    printf("  [OK] testArraySequenceCreate\n");
+    printf("  [OK] testListSequenceCreate\n");
 }
 
-void testArraySequenceGetFirstLast() {
+void testListSequenceGetFirstLast() {
     int items[] = {10, 20, 30};
-    ArraySequence<int> Seq(items, 3);
+    ListSequence<int> Seq(items, 3);
 
     assert(Seq.GetFirst() == 10);
     assert(Seq.GetLast() == 30);
 
     // пустая — исключение
-    ArraySequence<int> Empty;
+    ListSequence<int> Empty;
     bool threw = false;
     try { Empty.GetFirst(); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
@@ -51,27 +46,27 @@ void testArraySequenceGetFirstLast() {
     try { Empty.GetLast(); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
-    printf("  [OK] testArraySequenceGetFirstLast\n");
+    printf("  [OK] testListSequenceGetFirstLast\n");
 }
 
-void testArraySequenceGet() {
+void testListSequenceGet() {
     int items[] = {5, 10, 15};
-    ArraySequence<int> Seq(items, 3);
+    ListSequence<int> Seq(items, 3);
 
     assert(Seq.Get(0) == 5);
-    assert(Seq[2] == 15);  // через оператор []
+    assert(Seq[2] == 15);
 
     // выход за границы
     bool threw = false;
     try { Seq.Get(5); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
-    printf("  [OK] testArraySequenceGet\n");
+    printf("  [OK] testListSequenceGet\n");
 }
 
-void testArraySequenceGetSubsequence() {
+void testListSequenceGetSubsequence() {
     int items[] = {1, 2, 3, 4, 5};
-    ArraySequence<int> Seq(items, 5);
+    ListSequence<int> Seq(items, 5);
 
     Sequence<int>* Sub = Seq.GetSubsequence(1, 3);
     assert(Sub->GetLength() == 3);
@@ -94,11 +89,11 @@ void testArraySequenceGetSubsequence() {
     try { Seq.GetSubsequence(-1, 2); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
-    printf("  [OK] testArraySequenceGetSubsequence\n");
+    printf("  [OK] testListSequenceGetSubsequence\n");
 }
 
-void testArraySequenceAppend() {
-    ArraySequence<int> Seq;
+void testListSequenceAppend() {
+    ListSequence<int> Seq;
     Seq.Append(1);
     Seq.Append(2);
     Seq.Append(3);
@@ -107,11 +102,11 @@ void testArraySequenceAppend() {
     assert(Seq.GetFirst() == 1);
     assert(Seq.GetLast() == 3);
 
-    printf("  [OK] testArraySequenceAppend\n");
+    printf("  [OK] testListSequenceAppend\n");
 }
 
-void testArraySequencePrepend() {
-    ArraySequence<int> Seq;
+void testListSequencePrepend() {
+    ListSequence<int> Seq;
     Seq.Prepend(3);
     Seq.Prepend(2);
     Seq.Prepend(1);
@@ -120,12 +115,12 @@ void testArraySequencePrepend() {
     assert(Seq.GetFirst() == 1);
     assert(Seq.GetLast() == 3);
 
-    printf("  [OK] testArraySequencePrepend\n");
+    printf("  [OK] testListSequencePrepend\n");
 }
 
-void testArraySequenceInsertAt() {
+void testListSequenceInsertAt() {
     int items[] = {1, 3};
-    ArraySequence<int> Seq(items, 2);
+    ListSequence<int> Seq(items, 2);
 
     // вставка в середину
     Seq.InsertAt(1, 2);
@@ -145,14 +140,14 @@ void testArraySequenceInsertAt() {
     try { Seq.InsertAt(-1, 0); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
-    printf("  [OK] testArraySequenceInsertAt\n");
+    printf("  [OK] testListSequenceInsertAt\n");
 }
 
-void testArraySequenceConcat() {
+void testListSequenceConcat() {
     int a[] = {1, 2};
     int b[] = {3, 4};
-    ArraySequence<int> First(a, 2);
-    ArraySequence<int> Second(b, 2);
+    ListSequence<int> First(a, 2);
+    ListSequence<int> Second(b, 2);
 
     // [1,2] + [3,4] = [1,2,3,4]
     Sequence<int>* Concatenated = First.Concat(&Second);
@@ -162,17 +157,17 @@ void testArraySequenceConcat() {
     delete Concatenated;
 
     // склеивание с пустым
-    ArraySequence<int> Empty;
+    ListSequence<int> Empty;
     Concatenated = First.Concat(&Empty);
     assert(Concatenated->GetLength() == 2);
     delete Concatenated;
 
-    printf("  [OK] testArraySequenceConcat\n");
+    printf("  [OK] testListSequenceConcat\n");
 }
 
-void testArraySequenceMap() {
+void testListSequenceMap() {
     int items[] = {1, 2, 3};
-    ArraySequence<int> Source(items, 3);
+    ListSequence<int> Source(items, 3);
 
     // doubleIt: [1,2,3] -> [2,4,6]
     Sequence<int>* Doubled = Source.Map(DoubleIt);
@@ -185,12 +180,12 @@ void testArraySequenceMap() {
     // оригинал не изменился
     assert(Source.Get(0) == 1);
 
-    printf("  [OK] testArraySequenceMap\n");
+    printf("  [OK] testListSequenceMap\n");
 }
 
-void testArraySequenceWhere() {
+void testListSequenceWhere() {
     int items[] = {1, 2, 3, 4, 5};
-    ArraySequence<int> Mixed(items, 5);
+    ListSequence<int> Mixed(items, 5);
 
     // isEven: [1,2,3,4,5] -> [2,4]
     Sequence<int>* EvenOnly = Mixed.Where(IsEven);
@@ -201,17 +196,17 @@ void testArraySequenceWhere() {
 
     // ни одного подходящего
     int odds[] = {1, 3, 5};
-    ArraySequence<int> OnlyOdds(odds, 3);
+    ListSequence<int> OnlyOdds(odds, 3);
     Sequence<int>* NoEvens = OnlyOdds.Where(IsEven);
     assert(NoEvens->GetLength() == 0);
     delete NoEvens;
 
-    printf("  [OK] testArraySequenceWhere\n");
+    printf("  [OK] testListSequenceWhere\n");
 }
 
-void testArraySequenceReduce() {
+void testListSequenceReduce() {
     int items[] = {1, 2, 3, 4};
-    ArraySequence<int> Seq(items, 4);
+    ListSequence<int> Seq(items, 4);
 
     // сумма с начальным 0: 0+1+2+3+4 = 10
     int Sum = Seq.Reduce(AddInts, 0);
@@ -221,21 +216,21 @@ void testArraySequenceReduce() {
     Sum = Seq.Reduce(AddInts, 10);
     assert(Sum == 20);
 
-    printf("  [OK] testArraySequenceReduce\n");
+    printf("  [OK] testListSequenceReduce\n");
 }
 
-void testArraySequenceAll() {
-    printf("=== Тесты ArraySequence (Sequence<T>) ===\n");
-    testArraySequenceCreate();
-    testArraySequenceGetFirstLast();
-    testArraySequenceGet();
-    testArraySequenceGetSubsequence();
-    testArraySequenceAppend();
-    testArraySequencePrepend();
-    testArraySequenceInsertAt();
-    testArraySequenceConcat();
-    testArraySequenceMap();
-    testArraySequenceWhere();
-    testArraySequenceReduce();
+void testListSequenceAll() {
+    printf("=== Тесты ListSequence (Sequence<T>) ===\n");
+    testListSequenceCreate();
+    testListSequenceGetFirstLast();
+    testListSequenceGet();
+    testListSequenceGetSubsequence();
+    testListSequenceAppend();
+    testListSequencePrepend();
+    testListSequenceInsertAt();
+    testListSequenceConcat();
+    testListSequenceMap();
+    testListSequenceWhere();
+    testListSequenceReduce();
     printf("=== Все тесты пройдены! ===\n\n");
 }

@@ -83,7 +83,7 @@ public:
         if (index<0 || index >=size) {
             throw OutOfRange("index", index, 0, size-1);
         }
-        Node* current = head;
+        Node* current = head; //потом по хорошему добавить итератор (пока не надо, сначала m и imm)
         for (int i=0; i<index; i++)
             current = current->next;
         return current->value;
@@ -132,7 +132,7 @@ public:
         size++;
     }
     // подсписок
-    LinkedList<T>* GetSubList(int start_index, int end_index) {
+    LinkedList<T>* GetSubList(int start_index, int end_index) const {
         if (start_index<0 || start_index>end_index || end_index >= size) {
             throw OutOfRange("неверные индексы start_index, end_index");
         }
@@ -142,7 +142,7 @@ public:
         return result;
     }
     // склеивание списков
-    LinkedList<T>* Concat(LinkedList<T> *second_list) {
+    LinkedList<T>* Concat(LinkedList<T> *second_list) const {
         if (size == 0)
             return new LinkedList<T>(*second_list);
         if (second_list->size == 0)
