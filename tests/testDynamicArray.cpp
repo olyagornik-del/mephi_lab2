@@ -46,7 +46,7 @@ void testDynamicArrayGet() {
 
     // выход за границы
     bool threw = false;
-    try { Array.Get(3); } catch (const InvalidArgument&) { threw = true; }
+    try { Array.Get(3); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
     printf("  [OK] testDynamicArrayGet\n");
@@ -62,7 +62,7 @@ void testDynamicArraySet() {
 
     // выход за границы
     bool threw = false;
-    try { Array.Set(5, 99); } catch (const InvalidArgument&) { threw = true; }
+    try { Array.Set(5, 99); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
     printf("  [OK] testDynamicArraySet\n");

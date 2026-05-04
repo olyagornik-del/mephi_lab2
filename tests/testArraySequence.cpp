@@ -63,7 +63,7 @@ void testArraySequenceGet() {
 
     // выход за границы
     bool threw = false;
-    try { Seq.Get(5); } catch (const InvalidArgument&) { threw = true; }
+    try { Seq.Get(5); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
     printf("  [OK] testArraySequenceGet\n");

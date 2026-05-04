@@ -57,12 +57,12 @@ void testLinkedListGet() {
 
     // некорректный индекс — отрицательный
     bool threw = false;
-    try { List.Get(-1); } catch (const InvalidArgument&) { threw = true; }
+    try { List.Get(-1); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
     // некорректный индекс — за границей
     threw = false;
-    try { List.Get(3); } catch (const InvalidArgument&) { threw = true; }
+    try { List.Get(3); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
     // пустой список
@@ -119,7 +119,7 @@ void testLinkedListInsertAt() {
 
     // некорректный индекс
     bool threw = false;
-    try { List.InsertAt(-1, 0); } catch (const InvalidArgument&) { threw = true; }
+    try { List.InsertAt(-1, 0); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
     printf("  [OK] testLinkedListInsertAt\n");
@@ -143,11 +143,11 @@ void testLinkedListGetSubList() {
 
     // некорректные индексы
     bool threw = false;
-    try { List.GetSubList(3, 1); } catch (const InvalidArgument&) { threw = true; }
+    try { List.GetSubList(3, 1); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
     threw = false;
-    try { List.GetSubList(-1, 2); } catch (const InvalidArgument&) { threw = true; }
+    try { List.GetSubList(-1, 2); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
     printf("  [OK] testLinkedListGetSubList\n");
