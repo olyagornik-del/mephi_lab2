@@ -1,120 +1,121 @@
-#include <cassert> // assert
-#include <cstdio> //printf
+#include <cassert>
+#include <cstdio>
 
 #include "testMutable.h"
-#include "../Sequences/ArraySequence.h"
-#include "../Sequences/ListSequence.h"
+#include "../Sequences/MutableArraySequence.h"
+#include "../Sequences/MutableListSequence.h"
 
-void testArraySequenceAppend() {
-    ArraySequence<int> Seq;
-    Seq.Append(1);
+void testMutableArraySequenceAppend() {
+    MutableArraySequence<int> Seq;
+    Sequence<int>* result = Seq.Append(1);
+    assert(result == &Seq);
+    assert(Seq.GetLength() == 1);
+
     Seq.Append(2);
     Seq.Append(3);
-
     assert(Seq.GetLength() == 3);
     assert(Seq.GetFirst() == 1);
     assert(Seq.GetLast() == 3);
 
-    printf("  [OK] testArraySequenceAppend\n");
+    printf("  [OK] testMutableArraySequenceAppend\n");
 }
 
-void testArraySequencePrepend() {
-    ArraySequence<int> Seq;
-    Seq.Prepend(3);
+void testMutableArraySequencePrepend() {
+    MutableArraySequence<int> Seq;
+    Sequence<int>* result = Seq.Prepend(3);
+    assert(result == &Seq);
+    assert(Seq.GetLength() == 1);
+
     Seq.Prepend(2);
     Seq.Prepend(1);
-
     assert(Seq.GetLength() == 3);
     assert(Seq.GetFirst() == 1);
     assert(Seq.GetLast() == 3);
 
-    printf("  [OK] testArraySequencePrepend\n");
+    printf("  [OK] testMutableArraySequencePrepend\n");
 }
 
-void testArraySequenceInsertAt() {
+void testMutableArraySequenceInsertAt() {
     int items[] = {1, 3};
-    ArraySequence<int> Seq(items, 2);
+    MutableArraySequence<int> Seq(items, 2);
 
-    // вставка в середину
-    Seq.InsertAt(1, 2);
+    Sequence<int>* result = Seq.InsertAt(1, 2);
+    assert(result == &Seq);
     assert(Seq.GetLength() == 3);
     assert(Seq.Get(1) == 2);
 
-    // вставка в начало
     Seq.InsertAt(0, 0);
     assert(Seq.GetFirst() == 0);
 
-    // вставка в конец
     Seq.InsertAt(Seq.GetLength(), 99);
     assert(Seq.GetLast() == 99);
 
-    // некорректный индекс
     bool threw = false;
     try { Seq.InsertAt(-1, 0); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
-    printf("  [OK] testArraySequenceInsertAt\n");
+    printf("  [OK] testMutableArraySequenceInsertAt\n");
 }
 
-void testListSequenceAppend() {
-    ListSequence<int> Seq;
-    Seq.Append(1);
+void testMutableListSequenceAppend() {
+    MutableListSequence<int> Seq;
+    Sequence<int>* result = Seq.Append(1);
+    assert(result == &Seq);
+    assert(Seq.GetLength() == 1);
+
     Seq.Append(2);
     Seq.Append(3);
-
     assert(Seq.GetLength() == 3);
     assert(Seq.GetFirst() == 1);
     assert(Seq.GetLast() == 3);
 
-    printf("  [OK] testListSequenceAppend\n");
+    printf("  [OK] testMutableListSequenceAppend\n");
 }
 
-void testListSequencePrepend() {
-    ListSequence<int> Seq;
-    Seq.Prepend(3);
+void testMutableListSequencePrepend() {
+    MutableListSequence<int> Seq;
+    Sequence<int>* result = Seq.Prepend(3);
+    assert(result == &Seq);
+    assert(Seq.GetLength() == 1);
+
     Seq.Prepend(2);
     Seq.Prepend(1);
-
     assert(Seq.GetLength() == 3);
     assert(Seq.GetFirst() == 1);
     assert(Seq.GetLast() == 3);
 
-    printf("  [OK] testListSequencePrepend\n");
+    printf("  [OK] testMutableListSequencePrepend\n");
 }
 
-void testListSequenceInsertAt() {
+void testMutableListSequenceInsertAt() {
     int items[] = {1, 3};
-    ListSequence<int> Seq(items, 2);
+    MutableListSequence<int> Seq(items, 2);
 
-    // вставка в середину
-    Seq.InsertAt(1, 2);
+    Sequence<int>* result = Seq.InsertAt(1, 2);
+    assert(result == &Seq);
     assert(Seq.GetLength() == 3);
     assert(Seq.Get(1) == 2);
 
-    // вставка в начало
     Seq.InsertAt(0, 0);
     assert(Seq.GetFirst() == 0);
 
-    // вставка в конец
     Seq.InsertAt(Seq.GetLength(), 99);
     assert(Seq.GetLast() == 99);
 
-    // некорректный индекс
     bool threw = false;
     try { Seq.InsertAt(-1, 0); } catch (const OutOfRange&) { threw = true; }
     assert(threw);
 
-    printf("  [OK] testListSequenceInsertAt\n");
+    printf("  [OK] testMutableListSequenceInsertAt\n");
 }
-
 
 void testMutableAll() {
-    printf("=== Тесты Mutable (List+Array) ===\n");
-    testArraySequenceAppend();
-    testArraySequencePrepend();
-    testArraySequenceInsertAt();
-    testListSequenceAppend();
-    testListSequencePrepend();
-    testListSequenceInsertAt();
+    printf("=== Тесты MutableArraySequence + MutableListSequence ===\n");
+    testMutableArraySequenceAppend();
+    testMutableArraySequencePrepend();
+    testMutableArraySequenceInsertAt();
+    testMutableListSequenceAppend();
+    testMutableListSequencePrepend();
+    testMutableListSequenceInsertAt();
     printf("=== Все тесты пройдены! ===\n\n");
 }
