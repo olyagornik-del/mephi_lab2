@@ -43,13 +43,13 @@ public:
     }
 
     // добавляем в конец
-    Sequence<T>* Append(T item) override {
+    Sequence<T>* Append(const T &item) override {
         data.Resize(GetLength()+1);
         data.Set(GetLength() - 1, item);
         return this;
     }
     //добавляем в начало
-    Sequence<T>* Prepend(T item) override {
+    Sequence<T>* Prepend(const T &item) override {
         int size = GetLength();
         data.Resize(size + 1);
         for (int i = size; i > 0; i--)
@@ -58,7 +58,7 @@ public:
         return this;
     }
     //вставить по индексу
-    Sequence<T>* InsertAt(int index, T item) override {
+    Sequence<T>* InsertAt(int index, const T &item) override {
         if (index < 0 || index > GetLength()) {
             throw OutOfRange("index", index, 0, GetLength());
         }

@@ -13,9 +13,9 @@ public:
     virtual Sequence<T>* GetSubsequence(int start_index, int end_index) const = 0;
 
     // добавляем, получаем указатель на элемент/последовательность
-    virtual Sequence<T>* Append(T item) = 0;
-    virtual Sequence<T>* Prepend(T item) = 0;
-    virtual Sequence<T>* InsertAt(int index, T item) = 0; //  оперировать конст ссылками
+    virtual Sequence<T>* Append(const T &item) = 0;
+    virtual Sequence<T>* Prepend(const T &item) = 0;
+    virtual Sequence<T>* InsertAt(int index, const T &item) = 0; 
     virtual Sequence<T>* Concat(Sequence<T>* other) const = 0;
 
     //функции map-where-reduce

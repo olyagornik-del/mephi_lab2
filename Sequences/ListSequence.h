@@ -40,17 +40,17 @@ public:
     }
 
     //добавляем в конец
-    Sequence<T>* Append(T item) override {
+    Sequence<T>* Append(const T &item) override {
         data.Append(item);
         return this;
     }
     //добавляем в начало
-    Sequence<T>* Prepend(T item) override {
+    Sequence<T>* Prepend(const T &item) override {
         data.Prepend(item);
         return this;
     }
     //вставить по индексу
-    Sequence<T>* InsertAt(int index, T item)override {
+    Sequence<T>* InsertAt(int index, const T &item) override {
         if (index < 0 || index > GetLength()) {
             throw OutOfRange("index", index, 0, GetLength());
         }
