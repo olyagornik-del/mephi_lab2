@@ -46,9 +46,10 @@ public:
 
     // добавляем в конец
     Sequence<T>* Append(const T &item) override {
-        ArraySequence<T> *result =MakeInstance();
-        result->data.Resize(GetLength()+1);
-        result->data.Set(GetLength() - 1, item);
+        ArraySequence<T> *result = MakeInstance();
+        int old_size = GetLength();
+        result->data.Resize(old_size + 1);
+        result->data.Set(old_size, item);
         return result;
     }
     //добавляем в начало
@@ -66,21 +67,17 @@ public:
         if (index < 0 || index > GetLength()) {
             throw OutOfRange("index", index, 0, GetLength());
         }
-        if (index == 0) {
-            Prepend(item);
-            return this;
-        }
-        if (index==GetLength()) {
-            Append(item);
-            return this;
-        }
+        if (index == 0)
+            return Prepend(item);
+        if (index == GetLength())
+            return Append(item);
         ArraySequence<T> *result = MakeInstance();
         int size = GetLength();
-        result->data.Resize(size+1);
+        result->data.Resize(size + 1);
         for (int i = size; i > index; i--)
             result->data.Set(i, Get(i - 1));
         result->data.Set(index, item);
-        return this;
+        return result;
     }
     //склеивание списков
     Sequence<T>* Concat(Sequence<T> *other) const override{

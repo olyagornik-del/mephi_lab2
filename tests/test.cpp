@@ -3,6 +3,7 @@
 #include "testArraySequence.h"
 #include "testListSequence.h"
 #include "testMutable.h"
+#include "testImmutable.h"
 
 int main() {
     testDynamicArrayAll();
@@ -10,4 +11,5 @@ int main() {
     testArraySequenceAll();
     testListSequenceAll();
     testMutableAll();
+    testImmutableAll();
 }

@@ -45,13 +45,13 @@ public:
     Sequence<T>* Append(const T &item) override {
         ListSequence<T> *result = MakeInstance();
         result->data.Append(item);
-        return this;
+        return result;
     }
     //добавляем в начало
     Sequence<T>* Prepend(const T &item) override {
         ListSequence<T> *result = MakeInstance();
         result->data.Prepend(item);
-        return this;
+        return result;
     }
     //вставить по индексу
     Sequence<T>* InsertAt(int index, const T &item) override {
@@ -60,7 +60,7 @@ public:
         }
         ListSequence<T> *result = MakeInstance();
         result->data.InsertAt(index, item);
-        return this;
+        return result;
     }
     // склеивание списков
     Sequence<T>* Concat(Sequence<T>* other) const override {

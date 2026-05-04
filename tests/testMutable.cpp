@@ -110,7 +110,7 @@ void testMutableListSequenceInsertAt() {
 }
 
 void testMutableAll() {
-    printf("=== Тесты MutableArraySequence + MutableListSequence ===\n");
+    printf("=== Тесты Mutable (Array + List) ===\n");
     testMutableArraySequenceAppend();
     testMutableArraySequencePrepend();
     testMutableArraySequenceInsertAt();
