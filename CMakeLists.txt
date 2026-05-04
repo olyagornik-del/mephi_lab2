@@ -9,7 +9,9 @@ add_executable(lab2 main.cpp
         LinkedList.h
         Sequences/Sequence.h
         Sequences/ArraySequence.h
-        Sequences/ListSequence.h)
+        Sequences/ListSequence.h
+        Sequences/MutableArraySequence.h
+        Sequences/ImmutableArraySequence.h)
 
 add_executable(lab2_tests
         tests/test.cpp
@@ -20,5 +22,7 @@ add_executable(lab2_tests
         my_except.h
         LinkedList.h
         Sequences/Sequence.h
-        Sequences/ArraySequence.h)
+        Sequences/ArraySequence.h
+        Sequences/MutableArraySequence.h
+        Sequences/ImmutableArraySequence.h)
 

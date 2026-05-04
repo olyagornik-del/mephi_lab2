@@ -8,6 +8,8 @@ template <class T>
 class ArraySequence : public Sequence<T> {
 private:
     DynamicArray<T> data;
+protected:
+    virtual ArraySequence<T>* MakeInstance(){ return this; }
 public:
     //конструкторы;
     ArraySequence(): data() {}
@@ -44,18 +46,20 @@ public:
 
     // добавляем в конец
     Sequence<T>* Append(const T &item) override {
-        data.Resize(GetLength()+1);
-        data.Set(GetLength() - 1, item);
-        return this;
+        ArraySequence<T> *result =MakeInstance();
+        result->data.Resize(GetLength()+1);
+        result->data.Set(GetLength() - 1, item);
+        return result;
     }
     //добавляем в начало
     Sequence<T>* Prepend(const T &item) override {
+        ArraySequence<T> *result =MakeInstance();
         int size = GetLength();
-        data.Resize(size + 1);
+        result->data.Resize(size + 1);
         for (int i = size; i > 0; i--)
-            data.Set(i, Get(i - 1));
-        data.Set(0, item);
-        return this;
+            result->data.Set(i, Get(i - 1));
+        result->data.Set(0, item);
+        return result;
     }
     //вставить по индексу
     Sequence<T>* InsertAt(int index, const T &item) override {
@@ -70,11 +74,12 @@ public:
             Append(item);
             return this;
         }
+        ArraySequence<T> *result = MakeInstance();
         int size = GetLength();
-        data.Resize(size+1);
+        result->data.Resize(size+1);
         for (int i = size; i > index; i--)
-            data.Set(i, Get(i - 1));
-        data.Set(index, item);
+            result->data.Set(i, Get(i - 1));
+        result->data.Set(index, item);
         return this;
     }
     //склеивание списков
