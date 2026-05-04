@@ -19,18 +19,6 @@ public:
     int GetLength() const override{
         return data.GetSize();
     }
-    //получаем первый элемент
-    T GetFirst() const override {
-        if (GetLength() == 0)
-            throw OutOfRange("Последовательность пуста");
-        return data.Get(0);
-    } //!!
-    //получаем последний
-    T GetLast() const override {
-        if (GetLength() == 0)
-            throw OutOfRange("Последовательность пуста");
-        return data.Get(GetLength()-1);
-    }//!!
     // получаем элемент по индексу
     T Get(int index) const override {
         if (GetLength() == 0)
@@ -121,18 +109,6 @@ public:
                 result->Append(Get(i));
             }
         return result;
-    }
-    //reduce
-    T Reduce(T (*f)(T, T), T initial) const override {
-        T result = initial;
-        for (int i=0; i<GetLength(); i++) {
-            result = f(result, Get(i));
-        }
-        return result;
-    }
-    //оператор []
-    T operator[](int index) const override {
-        return Get(index);
     }
 };
 

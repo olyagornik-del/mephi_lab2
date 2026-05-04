@@ -19,19 +19,6 @@ public:
     int GetLength() const override {
         return data.GetLength();
     }
-
-    //получаем первый элемент
-    T GetFirst() const override {
-        if (GetLength() == 0)
-            throw OutOfRange("Последовательность пуста");
-        return data.Get(0);
-    }//!!
-    //получаем последний
-    T GetLast() const override {
-        if (GetLength() == 0)
-            throw OutOfRange("Последовательность пуста");
-        return data.Get(GetLength()-1);
-    }//!!
     // получаем элемент по индексу
     T Get(int index) const override {
         if (GetLength() == 0)
@@ -46,7 +33,8 @@ public:
             throw OutOfRange("неверные индексы start_index, end_index");
         }
         LinkedList<T> *sub = data.GetSubList(start_index, end_index);
-        Sequence<T> *result = new ListSequence<T>(*sub);
+        Sequence<T> *result = new ListSequence<T>(*sub); // sub не нужен
+        //create new который будет возращать нужный подтип
         delete sub;
         return result;
     }
@@ -98,17 +86,6 @@ public:
             }
         return result;
     }
-    //reduce
-    T Reduce(T (*f)(T, T), T initial) const override {
-        T result = initial;
-        for (int i = 0; i < GetLength(); i++)
-            result = f(result, Get(i));
-        return result;
-    } //!!
-    //оператор []
-    T operator[](int index) const override {
-        return Get(index);
-    } //!!
 };
 
 #endif //LAB2_LISTSEQUENCE_H
