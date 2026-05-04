@@ -9,6 +9,8 @@ template <class T>
 class ListSequence : public Sequence<T> {
 private:
     LinkedList<T> data;
+protected:
+    virtual ListSequence<T>* MakeInstance() { return this; }
 public:
     //конструкторы
     ListSequence(): data() {}
@@ -41,12 +43,14 @@ public:
 
     //добавляем в конец
     Sequence<T>* Append(const T &item) override {
-        data.Append(item);
+        ListSequence<T> *result = MakeInstance();
+        result->data.Append(item);
         return this;
     }
     //добавляем в начало
     Sequence<T>* Prepend(const T &item) override {
-        data.Prepend(item);
+        ListSequence<T> *result = MakeInstance();
+        result->data.Prepend(item);
         return this;
     }
     //вставить по индексу
@@ -54,7 +58,8 @@ public:
         if (index < 0 || index > GetLength()) {
             throw OutOfRange("index", index, 0, GetLength());
         }
-        data.InsertAt(index, item);
+        ListSequence<T> *result = MakeInstance();
+        result->data.InsertAt(index, item);
         return this;
     }
     // склеивание списков

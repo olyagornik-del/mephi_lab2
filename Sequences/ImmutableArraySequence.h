@@ -7,12 +7,12 @@ template <class T>
 class ImmutableArraySequence : public ArraySequence<T> {
 protected:
     ArraySequence<T>* MakeInstance() override {
-        return new ImmutableArraySequence<T>(*this); // копия через copy ctor
+        return new ImmutableArraySequence<T>(*this); // копия через конструктор копирования
     }
 public:
     ImmutableArraySequence() : ArraySequence<T>() {}
-    ImmutableArraySequence(T* items, int size) : ArraySequence<T>(items, size) {}
     explicit ImmutableArraySequence(int size) : ArraySequence<T>(size) {}
+    ImmutableArraySequence(T *items, int size) : ArraySequence<T>(items, size) {}
 };
 
 #endif //LAB2_IMMUTABLEARRAYSEQUENCE_H
