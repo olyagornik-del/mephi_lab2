@@ -1,7 +1,6 @@
-#include <cassert>
-#include <cstdio>
+#include <cassert> // assert
+#include <cstdio> //printf
 
-#include "testListSequence.h"
 #include "../Sequences/ListSequence.h"
 
 static int DoubleIt(int x) {

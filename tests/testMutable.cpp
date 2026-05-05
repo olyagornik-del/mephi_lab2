@@ -1,7 +1,6 @@
-#include <cassert>
-#include <cstdio>
+#include <cassert> // assert
+#include <cstdio> //printf
 
-#include "testMutable.h"
 #include "../Sequences/MutableArraySequence.h"
 #include "../Sequences/MutableListSequence.h"
 

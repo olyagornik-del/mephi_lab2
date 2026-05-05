@@ -1,7 +1,6 @@
 #include <cassert> // assert
 #include <cstdio> //printf
 
-#include "testArraySequence.h"
 #include "../Sequences/ArraySequence.h"
 
 //testArraySequence вспомогательные функции для Map / Where / Reduce

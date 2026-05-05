@@ -20,7 +20,6 @@ add_executable(lab2_tests
         tests/testDynamicArray.cpp
         tests/testLinkedList.cpp
         tests/testArraySequence.cpp
-        tests/testListSequence.h
         tests/testListSequence.cpp
         my_except.h
         DynamicArray.h
@@ -32,9 +31,7 @@ add_executable(lab2_tests
         Sequences/ImmutableArraySequence.h
         Sequences/MutableListSequence.h
         Sequences/ImmutableListSequence.h
-        tests/testMutable.h
         tests/testMutable.cpp
-        tests/testImmutable.h
         tests/testImmutable.cpp
 )
 

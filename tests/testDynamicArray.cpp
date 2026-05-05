@@ -1,7 +1,6 @@
-#include <cassert>
-#include <cstdio>
+#include <cassert> // assert
+#include <cstdio> //printf
 
-#include "testDynamicArray.h"
 #include "../DynamicArray.h"
 
 void testDynamicArrayCreate() {

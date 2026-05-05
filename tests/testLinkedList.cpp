@@ -1,7 +1,6 @@
-#include <cassert>
-#include <cstdio>
+#include <cassert> // assert
+#include <cstdio> //printf
 
-#include "testLinkedList.h"
 #include "../LinkedList.h"
 
 void testLinkedListCreate() {

@@ -1,9 +1,9 @@
-#include "testDynamicArray.h"
-#include "testLinkedList.h"
-#include "testArraySequence.h"
-#include "testListSequence.h"
-#include "testMutable.h"
-#include "testImmutable.h"
+void testDynamicArrayAll();
+void testLinkedListAll();
+void testArraySequenceAll();
+void testListSequenceAll();
+void testMutableAll();
+void testImmutableAll();
 
 int main() {
     testDynamicArrayAll();

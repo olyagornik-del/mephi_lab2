@@ -1,6 +1,0 @@
-#ifndef LAB2_TESTLINKEDLIST_H
-#define LAB2_TESTLINKEDLIST_H
-
-void testLinkedListAll();
-
-#endif //LAB2_TESTLINKEDLIST_H
