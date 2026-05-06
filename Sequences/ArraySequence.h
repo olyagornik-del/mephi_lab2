@@ -81,18 +81,14 @@ public:
     }
     //склеивание списков
     Sequence<T>* Concat(Sequence<T> *other) const override{
-        int new_length = GetLength()+other->GetLength();
-        T *temp = new T[new_length]; // можно сразу дм
-        for (int i=0; i<new_length; i++) {
-            if (i<GetLength()) {
-                temp[i] = Get(i);
-            }
-            else {
-                temp[i] = other->Get(i-GetLength());
-            }
+        int new_size = GetLength()+other->GetLength();
+        ArraySequence<T> *result = new ArraySequence(new_size); // можно сразу дм
+        for (int i = 0; i < GetLength(); i++) {
+            result->data.Set(i, Get(i));
         }
-        Sequence<T>* result = new ArraySequence<T>(temp, new_length);
-        delete[] temp;
+        for (int i = 0; i < other->GetLength(); i++) {
+            result->data.Set(GetLength() + i, other->Get(i));
+        }
         return result;
     }
 
@@ -104,12 +100,13 @@ public:
         return result;
     }
     // where
-    Sequence<T>* Where(bool (*f)(T)) const override {
+    Sequence<T>* Where(T (*f)(T)) const override {
         ArraySequence<T>* result = new ArraySequence<T>();
-        for (int i = 0; i < GetLength(); i++)
+        for (int i = 0; i < GetLength(); i++) {
             if (f(Get(i))) {
                 result->Append(Get(i));
             }
+        }
         return result;
     }
 };

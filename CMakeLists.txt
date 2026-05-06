@@ -13,7 +13,8 @@ add_executable(lab2 main.cpp
         Sequences/MutableArraySequence.h
         Sequences/ImmutableArraySequence.h
         Sequences/MutableListSequence.h
-        Sequences/ImmutableListSequence.h)
+        Sequences/ImmutableListSequence.h
+        Sequences/BitSequence.h)
 
 add_executable(lab2_tests
         tests/test.cpp
@@ -33,5 +34,6 @@ add_executable(lab2_tests
         Sequences/ImmutableListSequence.h
         tests/testMutable.cpp
         tests/testImmutable.cpp
+        Sequences/BitSequence.h
 )
 
