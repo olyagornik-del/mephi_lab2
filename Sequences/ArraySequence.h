@@ -100,7 +100,7 @@ public:
         return result;
     }
     // where
-    Sequence<T>* Where(T (*f)(T)) const override {
+    Sequence<T>* Where(bool (*f)(T)) const override {
         ArraySequence<T>* result = new ArraySequence<T>();
         for (int i = 0; i < GetLength(); i++) {
             if (f(Get(i))) {
