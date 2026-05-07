@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0)
 project(lab2 CXX)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 add_executable(lab2
         main.cpp
@@ -15,7 +15,10 @@ add_executable(lab2
         Sequences/ImmutableArraySequence.h
         Sequences/MutableListSequence.h
         Sequences/ImmutableListSequence.h
-        Sequences/BitSequence.h)
+        Sequences/BitSequence.h
+        scanValues.h
+        menu.h
+        SequenceOperations.h)
 
 add_executable(lab2_tests
         tests/test.cpp
@@ -37,6 +40,5 @@ add_executable(lab2_tests
         Sequences/ImmutableArraySequence.h
         Sequences/MutableListSequence.h
         Sequences/ImmutableListSequence.h
-
 )
 
