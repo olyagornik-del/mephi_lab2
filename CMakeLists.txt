@@ -35,5 +35,6 @@ add_executable(lab2_tests
         tests/testMutable.cpp
         tests/testImmutable.cpp
         Sequences/BitSequence.h
+        tests/testBitSequence.cpp
 )
 

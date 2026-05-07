@@ -4,6 +4,7 @@ void testArraySequenceAll();
 void testListSequenceAll();
 void testMutableAll();
 void testImmutableAll();
+void testBitSequenceAll();
 
 int main() {
     testDynamicArrayAll();
@@ -12,4 +13,5 @@ int main() {
     testListSequenceAll();
     testMutableAll();
     testImmutableAll();
+    testBitSequenceAll();
 }
