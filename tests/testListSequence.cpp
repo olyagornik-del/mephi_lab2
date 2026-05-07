@@ -3,7 +3,7 @@
 
 #include "../Sequences/ListSequence.h"
 
-static int DoubleIt(int x) {
+static int OneAnd(int x) {
     return x * 2;
 }
 static bool IsEven(int x) {
@@ -118,7 +118,7 @@ void testListSequenceMap() {
     ListSequence<int> Source(items, 3);
 
     // doubleIt: [1,2,3] -> [2,4,6]
-    Sequence<int>* Doubled = Source.Map(DoubleIt);
+    Sequence<int>* Doubled = Source.Map(OneAnd);
     assert(Doubled->GetLength() == 3);
     assert(Doubled->Get(0) == 2);
     assert(Doubled->Get(1) == 4);
@@ -170,8 +170,8 @@ void testListSequenceReduce() {
 void testListSequenceAll() {
     printf("=== Тесты ListSequence (Sequence<T>) ===\n");
     testListSequenceCreate();
-    testListSequenceGetFirstLast();
     testListSequenceGet();
+    testListSequenceGetFirstLast();
     testListSequenceGetSubsequence();
     testListSequenceConcat();
     testListSequenceMap();

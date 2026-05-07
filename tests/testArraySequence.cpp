@@ -72,7 +72,7 @@ void testArraySequenceGetSubsequence() {
     int items[] = {1, 2, 3, 4, 5};
     ArraySequence<int> Seq(items, 5);
 
-    Sequence<int>* Sub = Seq.GetSubsequence(1, 3);
+    Sequence<int> *Sub = Seq.GetSubsequence(1, 3);
     assert(Sub->GetLength() == 3);
     assert(Sub->Get(0) == 2);
     assert(Sub->Get(2) == 4);
@@ -142,7 +142,7 @@ void testArraySequenceWhere() {
     ArraySequence<int> Mixed(items, 5);
 
     // isEven: [1,2,3,4,5] -> [2,4]
-    Sequence<int>* EvenOnly = Mixed.Where(IsEven);
+    Sequence<int> *EvenOnly = Mixed.Where(IsEven);
     assert(EvenOnly->GetLength() == 2);
     assert(EvenOnly->Get(0) == 2);
     assert(EvenOnly->Get(1) == 4);
@@ -176,8 +176,8 @@ void testArraySequenceReduce() {
 void testArraySequenceAll() {
     printf("=== Тесты ArraySequence (Sequence<T>) ===\n");
     testArraySequenceCreate();
-    testArraySequenceGetFirstLast();
     testArraySequenceGet();
+    testArraySequenceGetFirstLast();
     testArraySequenceGetSubsequence();
     testArraySequenceConcat();
     testArraySequenceMap();

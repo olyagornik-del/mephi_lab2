@@ -151,7 +151,7 @@ public:
     //побитовые операции
     BitSequence* And(const BitSequence *other) const {
         if (other==nullptr) {
-            throw InvalidArgument("other");
+            throw InvalidArgument("other (пустой)");
         }
         if (bit_count != other->bit_count) {
             throw InvalidArgument("несовпадение длин");
@@ -193,7 +193,6 @@ public:
         BitSequence *result = new BitSequence(bit_count);
         for (int i = 0; i < blocks.GetSize(); i++)
             result->blocks.Set(i, ~blocks.Get(i));
-
         // вычистить хвост последнего блока
         int tail_bits = bit_count % bits_per_block;
         if (tail_bits != 0 && blocks.GetSize() > 0) {

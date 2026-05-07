@@ -180,8 +180,8 @@ void testLinkedListConcat() {
 void testLinkedListAll() {
     printf("=== Тесты LinkedList ===\n");
     testLinkedListCreate();
-    testLinkedListGetFirstLast();
     testLinkedListGet();
+    testLinkedListGetFirstLast();
     testLinkedListAppend();
     testLinkedListPrepend();
     testLinkedListInsertAt();
