@@ -86,7 +86,7 @@ template <class T>
 void printSequence(const Sequence<T> *s) {
     std::cout << "[ ";
     for (int i = 0; i < s->GetLength(); i++) {
-        std::cout << s->Get(i);
+        std::cout << s->Get(i); //или (*s)[i]
         if (i + 1 < s->GetLength()) std::cout << ", ";
     }
     std::cout << " ]";

@@ -4,6 +4,8 @@
 #include "../DynamicArray.h"
 #include "Sequence.h"
 
+
+//можно назвать сразу mut
 template <class T>
 class ArraySequence : public Sequence<T> {
 private:
@@ -92,7 +94,7 @@ public:
         return result;
     }
 
-    //map
+    //map - сделать если imm то возвр тоже im
     Sequence<T>* Map(T (*f)(T)) const override {
         ArraySequence<T>* result = new ArraySequence<T>(GetLength());
         for (int i = 0; i < GetLength(); i++)

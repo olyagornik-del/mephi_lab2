@@ -11,7 +11,7 @@ class BitSequence: public Sequence<Bit> {
 private:
     DynamicArray<unsigned int> blocks;
     int bit_count; // кол-во битов
-    static const int bits_per_block = 32; // сколько битов в 1 блоке
+    static const int bits_per_block = 8*sizeof(unsigned int);
 
     void SetBit(int index, Bit value) {
         int block_i = index / bits_per_block;

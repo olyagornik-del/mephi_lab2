@@ -81,7 +81,8 @@ public:
         for (int i = 0; i < GetLength(); i++)
             result->Append(f(Get(i)));
         return result;
-    }
+    } // квадратичный перебор
+    // на уровень выше и сделать функцию для вот этой одной строки
     //where
     Sequence<T>* Where(bool (*f)(T)) const override {
         ListSequence<T>* result = new ListSequence<T>();

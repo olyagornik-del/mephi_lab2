@@ -16,7 +16,7 @@ public:
     virtual Sequence<T>* Append(const T &item) = 0;
     virtual Sequence<T>* Prepend(const T &item) = 0;
     virtual Sequence<T>* InsertAt(int index, const T &item) = 0; 
-    virtual Sequence<T>* Concat(Sequence<T>* other) const = 0;
+    virtual Sequence<T>* Concat(Sequence<T>* other) const = 0; //нет mutable/immutable
 
     //функции map-where-reduce
     virtual Sequence<T>* Map(T (*f)(T)) const = 0;
