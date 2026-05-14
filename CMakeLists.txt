@@ -9,11 +9,9 @@ add_executable(lab2
         DynamicArray.h
         LinkedList.h
         Sequences/Sequence.h
-        Sequences/ArraySequence.h
-        Sequences/ListSequence.h
         Sequences/MutableArraySequence.h
-        Sequences/ImmutableArraySequence.h
         Sequences/MutableListSequence.h
+        Sequences/ImmutableArraySequence.h
         Sequences/ImmutableListSequence.h
         Sequences/BitSequence.h
         scanValues.h
@@ -34,11 +32,9 @@ add_executable(lab2_tests
         DynamicArray.h
         LinkedList.h
         Sequences/Sequence.h
-        Sequences/ArraySequence.h
-        Sequences/ListSequence.h
         Sequences/MutableArraySequence.h
-        Sequences/ImmutableArraySequence.h
         Sequences/MutableListSequence.h
+        Sequences/ImmutableArraySequence.h
         Sequences/ImmutableListSequence.h
 )
 
