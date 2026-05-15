@@ -11,7 +11,7 @@ private:
     LinkedList<T> data;
 protected:
     virtual MutableListSequence<T>* MakeInstance() { return this; }
-    Sequence<T>* Instance() const override { return new MutableListSequence<T>(); }
+    MutableListSequence<T>* Instance() const override { return new MutableListSequence<T>(); }
     void AppendInPlace(const T& item) override { data.Append(item); }
 public:
     //конструкторы
@@ -30,6 +30,19 @@ public:
         if (index < 0 || index >= GetLength())
             throw OutOfRange("index", index, 0, GetLength() - 1);
         return data.Get(index);
+    }
+    // получаем подпоследовательность
+    Sequence<T>* GetSubsequence(int start_index, int end_index) const override {
+        if (start_index < 0 || start_index > end_index || end_index >= GetLength())
+            throw OutOfRange("неверные индексы start_index, end_index");
+        MutableListSequence<T>* result = this->Instance();
+        int i = 0;
+        for (auto it = data.GetIterator(); it.HasNext(); it.Next(), i++) {
+            if (i < start_index) continue;
+            if (i > end_index) break;
+            result->AppendInPlace(it.Current());
+        }
+        return result;
     }
 
     //добавляем в конец
@@ -51,6 +64,31 @@ public:
         }
         MutableListSequence<T> *result = MakeInstance();
         result->data.InsertAt(index, item);
+        return result;
+    }
+    Sequence<T>* Concat(Sequence<T>* other) const override {
+        if (other == nullptr)
+            throw InvalidArgument("other");
+        MutableListSequence<T>* result = this->Instance();
+        for (auto it = data.GetIterator(); it.HasNext(); it.Next()) // this — O(n)
+            result->AppendInPlace(it.Current());
+        for (int i = 0; i < other->GetLength(); i++) // other — O(m^2) если список (да, вот такой компромисс)
+            result->AppendInPlace(other->Get(i));
+        return result;
+    }
+
+    Sequence<T>* Map(T (*f)(T)) const override {
+        MutableListSequence<T>* result = this->Instance();
+        for (auto it = data.GetIterator(); it.HasNext(); it.Next())
+            result->AppendInPlace(f(it.Current()));
+        return result;
+    }
+
+    Sequence<T>* Where(bool (*f)(T)) const override {
+        MutableListSequence<T>* result = this->Instance();
+        for (auto it = data.GetIterator(); it.HasNext(); it.Next())
+            if (f(it.Current()))
+                result->AppendInPlace(it.Current());
         return result;
     }
 

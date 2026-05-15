@@ -6,10 +6,10 @@
 template <class T>
 class ImmutableListSequence : public MutableListSequence<T> {
 protected:
-    MutableListSequence<T>* MakeInstance() override {
+    ImmutableListSequence<T>* MakeInstance() override {
         return new ImmutableListSequence<T>(*this);
     }
-    Sequence<T>* Instance() const override { return new ImmutableListSequence<T>(); }
+    ImmutableListSequence<T>* Instance() const override { return new ImmutableListSequence<T>(); }
 public:
     ImmutableListSequence(): MutableListSequence<T>() {}
     ImmutableListSequence(T *items, int size): MutableListSequence<T>(items, size) {}
