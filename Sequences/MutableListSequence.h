@@ -1,6 +1,6 @@
 
-#ifndef LAB2_LISTSEQUENCE_H
-#define LAB2_LISTSEQUENCE_H
+#ifndef LAB2_MUTABLELISTSEQUENCE_H
+#define LAB2_MUTABLELISTSEQUENCE_H
 
 #include "../LinkedList.h"
 #include "Sequence.h"
@@ -94,4 +94,4 @@ public:
     }
 };
 
-#endif //LAB2_LISTSEQUENCE_H
+#endif //LAB2_MUTABLELISTSEQUENCE_H

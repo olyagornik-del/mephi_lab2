@@ -1,11 +1,11 @@
-#ifndef LAB2_ARRAYSEQUENCE_H
-#define LAB2_ARRAYSEQUENCE_H
+#ifndef LAB2_MUTABLEARRAYSEQUENCE_H
+#define LAB2_MUTABLEARRAYSEQUENCE_H
 
 #include "../DynamicArray.h"
 #include "Sequence.h"
 
 
-//можно назвать сразу mut
+
 template <class T>
 class MutableArraySequence : public Sequence<T> {
 private:
@@ -113,4 +113,4 @@ public:
     }
 };
 
-#endif //LAB2_ARRAYSEQUENCE_H
+#endif //LAB2_MUTABLEARRAYSEQUENCE_H

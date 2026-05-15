@@ -11,7 +11,6 @@ protected:
     }
 public:
     ImmutableListSequence(): MutableListSequence<T>() {}
-    explicit ImmutableListSequence(int size): MutableListSequence<T>(size) {}
     ImmutableListSequence(T *items, int size): MutableListSequence<T>(items, size) {}
 };
 #endif //LAB2_IMMUTABLELISTSEQUENCE_H
