@@ -11,6 +11,8 @@ private:
     LinkedList<T> data;
 protected:
     virtual MutableListSequence<T>* MakeInstance() { return this; }
+    Sequence<T>* Instance() const override { return new MutableListSequence<T>(); }
+    void AppendInPlace(const T& item) override { data.Append(item); }
 public:
     //конструкторы
     MutableListSequence(): data() {}
@@ -28,17 +30,6 @@ public:
         if (index < 0 || index >= GetLength())
             throw OutOfRange("index", index, 0, GetLength() - 1);
         return data.Get(index);
-    }
-    //получаем подсписок
-    Sequence<T>* GetSubsequence(int start_index, int end_index) const override {
-        if (start_index < 0 || start_index > end_index || end_index >= GetLength()) {
-            throw OutOfRange("неверные индексы start_index, end_index");
-        }
-        LinkedList<T> *sub = data.GetSubList(start_index, end_index);
-        Sequence<T> *result = new MutableListSequence<T>(*sub); // sub не нужен
-        //create new который будет возращать нужный подтип
-        delete sub;
-        return result;
     }
 
     //добавляем в конец
@@ -62,36 +53,7 @@ public:
         result->data.InsertAt(index, item);
         return result;
     }
-    // склеивание списков
-    Sequence<T>* Concat(Sequence<T>* other) const override {
-        if (other == nullptr)
-            throw InvalidArgument("other");
-        LinkedList<T> other_list;
-        for (int i = 0; i < other->GetLength(); i++)
-            other_list.Append(other->Get(i));
-        LinkedList<T>* temp = data.Concat(&other_list);
-        Sequence<T>* result = new MutableListSequence<T>(*temp);
-        delete temp;
-        return result;
-    }
 
-    //map
-    Sequence<T>* Map(T (*f)(T)) const override {
-        MutableListSequence<T>* result = new MutableListSequence<T>();
-        for (int i = 0; i < GetLength(); i++)
-            result->Append(f(Get(i)));
-        return result;
-    } // квадратичный перебор
-    // на уровень выше и сделать функцию для вот этой одной строки
-    //where
-    Sequence<T>* Where(bool (*f)(T)) const override {
-        MutableListSequence<T>* result = new MutableListSequence<T>();
-        for (int i = 0; i <GetLength(); i++)
-            if (f(Get(i))) {
-                result->Append(Get(i));
-            }
-        return result;
-    }
 };
 
 #endif //LAB2_MUTABLELISTSEQUENCE_H

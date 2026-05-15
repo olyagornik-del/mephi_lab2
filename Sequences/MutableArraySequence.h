@@ -12,6 +12,12 @@ private:
     DynamicArray<T> data;
 protected:
     virtual MutableArraySequence<T>* MakeInstance(){ return this; }
+    Sequence<T>* Instance() const override { return new MutableArraySequence<T>(); }
+    void AppendInPlace(const T& item) override {
+        int n = data.GetSize();
+        data.Resize(n + 1);
+        data.Set(n, item);
+    }
 public:
     //конструкторы;
     MutableArraySequence(): data() {}
@@ -30,20 +36,6 @@ public:
         if (index < 0 || index >= GetLength())
             throw OutOfRange("index", index, 0, GetLength() - 1);
         return data.Get(index);
-    }
-    // получаем подсписок
-    Sequence<T>* GetSubsequence(int start_index, int end_index) const override {
-        if (start_index < 0 || start_index > end_index || end_index >= GetLength()) {
-            throw OutOfRange("неверные индексы start_index, end_index");
-        }
-        int sub_size = end_index - start_index +1;
-        T *temp = new T[sub_size];
-        for (int i=0; i<sub_size; i++) {
-            temp[i] = Get(i+start_index);
-        }
-        Sequence<T> *result = new MutableArraySequence(temp, sub_size);
-        delete[] temp;
-        return  result;
     }
 
     // добавляем в конец
@@ -81,36 +73,7 @@ public:
         result->data.Set(index, item);
         return result;
     }
-    //склеивание списков
-    Sequence<T>* Concat(Sequence<T> *other) const override{
-        int new_size = GetLength()+other->GetLength();
-        MutableArraySequence<T> *result = new MutableArraySequence(new_size); // можно сразу дм
-        for (int i = 0; i < GetLength(); i++) {
-            result->data.Set(i, Get(i));
-        }
-        for (int i = 0; i < other->GetLength(); i++) {
-            result->data.Set(GetLength() + i, other->Get(i));
-        }
-        return result;
-    }
 
-    //map - сделать если imm то возвр тоже im
-    Sequence<T>* Map(T (*f)(T)) const override {
-        MutableArraySequence<T>* result = new MutableArraySequence<T>(GetLength());
-        for (int i = 0; i < GetLength(); i++)
-            result->data.Set(i, f(Get(i)));
-        return result;
-    }
-    // where
-    Sequence<T>* Where(bool (*f)(T)) const override {
-        MutableArraySequence<T>* result = new MutableArraySequence<T>();
-        for (int i = 0; i < GetLength(); i++) {
-            if (f(Get(i))) {
-                result->Append(Get(i));
-            }
-        }
-        return result;
-    }
 };
 
 #endif //LAB2_MUTABLEARRAYSEQUENCE_H

@@ -9,6 +9,7 @@ protected:
     MutableArraySequence<T>* MakeInstance() override {
         return new ImmutableArraySequence<T>(*this); // копия через конструктор копирования
     }
+    Sequence<T>* Instance() const override { return new ImmutableArraySequence<T>(); }
 public:
     ImmutableArraySequence() : MutableArraySequence<T>() {}
     explicit ImmutableArraySequence(int size) : MutableArraySequence<T>(size) {}
