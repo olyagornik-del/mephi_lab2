@@ -4,13 +4,13 @@
 #include "../Sequences/MutableArraySequence.h"
 
 //testArraySequence вспомогательные функции для Map / Where / Reduce
-static int DoubleIt(int x) {
+static int DoubleIt(const int& x) {
     return x * 2;
 }
-static bool IsEven(int x) {
+static bool IsEven(const int& x) {
     return x % 2 == 0;
 }
-static int AddInts(int a, int b) {
+static int AddInts(const int& a, const int& b) {
     return a + b;
 }
 

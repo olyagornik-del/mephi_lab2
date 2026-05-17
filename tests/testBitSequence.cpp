@@ -4,13 +4,13 @@
 #include "../Sequences/BitSequence.h"
 
 //testArraySequence вспомогательные функции для Map / Where / Reduce
-static Bit InvertBit(Bit b) {
+static Bit InvertBit(const Bit& b) {
     return !b;
 }
-static bool IsTrue(Bit b) {
+static bool IsTrue(const Bit& b) {
     return b;
 }
-static Bit AndBits(Bit a, Bit b) {
+static Bit AndBits(const Bit& a, const Bit& b) {
     return a && b;
 }
 

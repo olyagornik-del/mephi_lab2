@@ -15,8 +15,10 @@ add_executable(lab2
         Sequences/ImmutableListSequence.h
         Sequences/BitSequence.h
         scanValues.h
+        scanValues.cpp
         menu.h
-        SequenceOperations.h)
+        menu.cpp
+        SequenceOperations.cpp)
 
 add_executable(lab2_tests
         tests/test.cpp

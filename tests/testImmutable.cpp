@@ -4,10 +4,10 @@
 #include "../Sequences/ImmutableArraySequence.h"
 #include "../Sequences/ImmutableListSequence.h"
 
-static int DoubleIt(int x) {
+static int DoubleIt(const int& x) {
     return x * 2;
 }
-static bool IsEven(int x) {
+static bool IsEven(const int& x) {
     return x % 2 == 0;
 }
 

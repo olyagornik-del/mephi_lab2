@@ -3,13 +3,13 @@
 
 #include "../Sequences/MutableListSequence.h"
 
-static int OneAnd(int x) {
+static int OneAnd(const int& x) {
     return x * 2;
 }
-static bool IsEven(int x) {
+static bool IsEven(const int& x) {
     return x % 2 == 0;
 }
-static int AddInts(int a, int b) {
+static int AddInts(const int& a, const int& b) {
     return a + b;
 }
 

@@ -1,6 +1,4 @@
-#ifndef LAB2_SEQUENCE_OPS_H
-#define LAB2_SEQUENCE_OPS_H
-
+#include <iostream>
 #include <type_traits> //std::is_same
 
 #include "Sequences/Sequence.h"
@@ -14,20 +12,20 @@
 #include "menu.h"
 
 // функции для выбора в map/reduce/ where для int / double
-template <class T> T fSquare(T x) { return x * x; }
-template <class T> T fNegate(T x) { return -x; }
-template <class T> bool fPositive(T x) { return x > 0; }
-template <class T> T fSum(T a, T b) { return a + b; }
-template <class T> T fMul(T a, T b) { return a * b; }
+template <class T> static T fSquare(const T& x) { return x * x; }
+template <class T> static T fNegate(const T& x) { return -x; }
+template <class T> static bool fPositive(const T& x) { return x > 0; }
+template <class T> static T fSum(const T& a, const T& b) { return a + b; }
+template <class T> static T fMul(const T& a, const T& b) { return a * b; }
 // для bool
-inline bool fNot(bool x) { return !x; }
-inline bool fIsTrue(bool x) { return x; }
-inline bool fAnd(bool a, bool b) { return a && b; }
-inline bool fOr (bool a, bool b) { return a || b; }
+static bool fNot(const bool& x) { return !x; }
+static bool fIsTrue(const bool& x) { return x; }
+static bool fAnd(const bool& a, const bool& b) { return a && b; }
+static bool fOr (const bool& a, const bool& b) { return a || b; }
 
-//вспомагательные ф
+//вспомогательные ф
 template <class T>
-T* readValues(int n) {
+static T* readValues(int n) {
     T *temp = new T[n];
     for (int i = 0; i < n; i++) {
         std::cout << "  Элемент [" << i << "]: ";
@@ -37,8 +35,9 @@ T* readValues(int n) {
     }
     return temp;
 }
+
 template <class T>
-Sequence<T>* makeArrayOrList(int family, int mutability, T *items, int n) {
+static Sequence<T>* makeArrayOrList(int family, int mutability, T *items, int n) {
     if (family == 1) { // Array
         if (mutability == 1) {
             return new MutableArraySequence<T>(items, n);
@@ -57,7 +56,7 @@ Sequence<T>* makeArrayOrList(int family, int mutability, T *items, int n) {
 } // makeArrayOrList
 
 template <class T>
-Sequence<T>* createSequence() {
+static Sequence<T>* createSequence() {
     int family, mutability;
     do { printFamilyMenu(); } while (!scanInt(family) || family < 1 || family > 2);
     do { printMutabilityMenu(); } while (!scanInt(mutability) || mutability < 1 || mutability > 2);
@@ -71,7 +70,7 @@ Sequence<T>* createSequence() {
 }
 
 template <>
-inline Sequence<bool>* createSequence<bool>() {
+Sequence<bool>* createSequence<bool>() {
     std::cout << "  Контейнер: BitSequence (автоматически)\n";
 
     int n = inputSize();
@@ -83,7 +82,7 @@ inline Sequence<bool>* createSequence<bool>() {
 }
 
 template <class T>
-void printSequence(const Sequence<T> *s) {
+static void printSequence(const Sequence<T> *s) {
     std::cout << "[ ";
     for (int i = 0; i < s->GetLength(); i++) {
         std::cout << s->Get(i); //или (*s)[i]
@@ -94,7 +93,7 @@ void printSequence(const Sequence<T> *s) {
 
 // для append/prepand/insert at
 template <class T>
-void modifySequence(Sequence<T>* &seq, const char *name) {
+static void modifySequence(Sequence<T>* &seq, const char *name) {
     if (seq == nullptr) {
         std::cout << "  Сначала создайте " << name << "!\n";
         return;
@@ -138,7 +137,7 @@ void modifySequence(Sequence<T>* &seq, const char *name) {
 
 // подпоследовательность
 template <class T>
-void subsequenceOf(const Sequence<T> *seq, const char *name) {
+static void subsequenceOf(const Sequence<T> *seq, const char *name) {
     if (seq == nullptr) {
         std::cout << "  Сначала создайте " << name << " >:/ \n";
         return;
@@ -169,7 +168,7 @@ void subsequenceOf(const Sequence<T> *seq, const char *name) {
 }
 
 template <class T>
-void mapWhereReduce(const Sequence<T> *seq, const char *name) {
+static void mapWhereReduce(const Sequence<T> *seq, const char *name) {
     int operation;
     do { printMWRMenu(); } while (!scanInt(operation) || operation < 1 || operation > 3);
 
@@ -208,8 +207,9 @@ void mapWhereReduce(const Sequence<T> *seq, const char *name) {
         std::cout << "  Reduce(" << name << ") = " << result << "\n";
     }
 }
+
 template <>
-inline void mapWhereReduce<bool>(const Sequence<bool> *seq, const char *name) {
+void mapWhereReduce<bool>(const Sequence<bool> *seq, const char *name) {
     int operation;
     do { printMWRMenu(); } while (!scanInt(operation) || operation < 1 || operation > 3);
 
@@ -241,10 +241,9 @@ inline void mapWhereReduce<bool>(const Sequence<bool> *seq, const char *name) {
     } //else
 } //mapWhereReduce
 
-
 // Сама работа с последовательностями:
 template <class T>
-inline void runMenu() {
+static void runSequenceMenu() {
     Sequence<T> *A = nullptr;
     Sequence<T> *B = nullptr;
 
@@ -398,4 +397,16 @@ inline void runMenu() {
         }
     }
 }
-#endif //LAB2_SEQUENCE_OPS_H
+
+void RunMenu() {
+    printBanner();
+
+    int typeChoice;
+    do { printTypeMenu(); } while (!scanInt(typeChoice) || typeChoice < 1 || typeChoice > 3);
+
+    switch (typeChoice) {
+        case 1: runSequenceMenu<int>();    break;
+        case 2: runSequenceMenu<double>(); break;
+        case 3: runSequenceMenu<bool>();   break;
+    }
+}

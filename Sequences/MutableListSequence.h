@@ -77,14 +77,14 @@ public:
         return result;
     }
 
-    Sequence<T>* Map(T (*f)(T)) const override {
+    Sequence<T>* Map(T (*f)(const T&)) const override {
         MutableListSequence<T>* result = this->Instance();
         for (auto it = data.GetIterator(); it.HasNext(); it.Next())
             result->AppendInPlace(f(it.Current()));
         return result;
     }
 
-    Sequence<T>* Where(bool (*f)(T)) const override {
+    Sequence<T>* Where(bool (*f)(const T&)) const override {
         MutableListSequence<T>* result = this->Instance();
         for (auto it = data.GetIterator(); it.HasNext(); it.Next())
             if (f(it.Current()))
